@@ -26,9 +26,43 @@
 #define _STREX_H_
 
 #include <string>
+#include <sstream>
 
 namespace strex
 {
+    template <typename T>
+    std::string to_string(T value)
+    {
+        std::stringstream buff;
+        buff << value;
+        return buff.str();
+    }
+
+    template <>
+    inline std::string to_string(bool value)
+    {
+        return value ? "true" : "false";
+    }
+
+    template <typename T>
+    T from_string(const std::string& str)
+    {
+        std::stringstream buff(str);
+        T value;
+        buff >> value;
+        return value;
+    }
+
+    template <>
+    inline bool from_string(const std::string& str)
+    {
+        if (str == "true")
+            return true;
+        if (str == "false")
+            return false;
+        throw std::logic_error("No a boolean value");
+    }
+
 
 #ifdef _WIN32
     std::wstring widen(const char* value);
