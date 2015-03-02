@@ -24,7 +24,7 @@
 
 #include "strex.h"
 
-#include <vector>
+#include <regex>
 
 #ifdef _WIN32
 #include <windows.h>
