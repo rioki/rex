@@ -6,6 +6,7 @@
 
 #ifdef _WIN32
 #include <windows.h>
+#include <shlobj.h>
 #define SEP  '\\'
 #define WSEP '/'
 #else
@@ -223,6 +224,23 @@ namespace path
             throw std::runtime_error("Failed to get temp path.");
         }
     #else
+    #error PORT ME
+    #endif
+    }
+
+    std::string confdir(const std::string& name)
+    {
+    #ifdef _WIN32
+        char tmp[MAX_PATH+1];
+        BOOL r = SHGetSpecialFolderPathA(NULL, tmp, CSIDL_COMMON_APPDATA, FALSE);
+        if (r == FALSE)
+        {
+            throw std::runtime_error("Failed to get APPDATA folder!");
+        }
+
+        return join(tmp, name);
+    #else
+    // $HOME/.<name>/
     #error PORT ME
     #endif
     }

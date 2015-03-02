@@ -33,6 +33,45 @@
 
 namespace strex
 {
+    std::vector<std::string> explode(const std::string& str, const std::string& delimiter)
+    {
+        std::vector<std::string> gibs;
+        size_t start = 0;
+        size_t end = 0;
+
+        while ((start != std::string::npos) && (start < str.size()))
+        {
+            end = str.find(delimiter, start);
+
+            std::string gib;
+            if (end == std::string::npos)
+            {
+                gib = str.substr(start);
+                start = std::string::npos;
+            }
+            else
+            {
+                gib = str.substr(start, end - start);
+                start = end + delimiter.size();
+            }
+            gibs.push_back(gib);
+        }
+
+        return gibs;
+    }
+
+    std::regex invalid_chars("[^a-zA-Z0-9\\-]");
+    std::regex multiple_spaces("\\s+");
+    std::regex spaces("\\s");
+
+    std::string slug(const std::string& str)
+    {
+        std::string t1 = std::regex_replace(str, invalid_chars, "");
+        std::string t2 = std::regex_replace(t1, multiple_spaces, " ");
+        std::string t3 = t2.substr(0, 45);
+        return std::regex_replace(t3, spaces, "-");
+    }
+
 #ifdef _WIN32    
     std::wstring widen(const char* value)
     {

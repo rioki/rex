@@ -34,6 +34,8 @@ namespace path
     std::string ext(const std::string& file);
     
     std::string tempdir();
+
+    std::string confdir(const std::string& name);
 }
 
 #endif
