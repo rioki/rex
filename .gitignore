@@ -1,5 +1,6 @@
 /x64
-/Win32
+/x86
+/.vs
 /rex.sdf
 /rex.v12.suo
 /rex.opensdf
