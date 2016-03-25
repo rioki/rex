@@ -74,6 +74,12 @@ namespace strex
         return !str[h] ? 5381 : (hash(str, h+1)*33) ^ str[h];
     }
 
+    inline 
+    unsigned int hash(const std::string& str)
+    {
+        return hash(str.c_str());
+    } 
+    
 #ifdef _WIN32
     std::wstring widen(const char* value);
     std::wstring widen(const std::string& value);
