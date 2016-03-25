@@ -68,6 +68,12 @@ namespace strex
 
     std::string slug(const std::string& str);    
 
+    constexpr 
+    unsigned int hash(const char* str, int h = 0)
+    {
+        return !str[h] ? 5381 : (hash(str, h+1)*33) ^ str[h];
+    }
+
 #ifdef _WIN32
     std::wstring widen(const char* value);
     std::wstring widen(const std::string& value);
