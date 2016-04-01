@@ -66,6 +66,26 @@ namespace strex
 
     std::vector<std::string> explode(const std::string& str, const std::string& delimiter);
 
+    template <typename C> 
+    std::string join(const C& strs, const std::string& delimiter)
+    {
+        std::stringstream buff;
+
+        size_t s = 1;
+        for (const std::string& str : strs)
+        {
+            buff << str;
+            if (s != strs.size())
+            {
+                buff << delimiter;
+            }
+            s++;
+        }
+
+        return buff.str();
+    }
+
+
     std::string slug(const std::string& str);    
 
     constexpr 
