@@ -121,5 +121,36 @@ namespace strex
         }
     }
 #endif 
+
+    std::string rtrim(const std::string& str, const std::string& chars)
+    {
+        size_t p = str.find_last_of(chars);
+        if (p != std::string::npos)
+        {
+            return str.substr(0, p - 1);
+        }
+        else
+        {
+            return str;
+        }
+    }
+
+    std::string ltrim(const std::string& str, const std::string& chars)
+    {
+        size_t p = str.find_first_of(chars);
+        if (p != std::string::npos)
+        {
+            return str.substr(p);
+        }
+        else
+        {
+            return str;
+        }
+    }
+
+    std::string trim(const std::string& str, const std::string& chars)
+    {
+        return rtrim(ltrim(str, chars), chars);
+    }
 }
 

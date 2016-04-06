@@ -99,6 +99,10 @@ namespace strex
     {
         return hash(str.c_str());
     } 
+
+    std::string rtrim(const std::string& str, const std::string& chars = " \t");
+    std::string ltrim(const std::string& str, const std::string& chars = " \t");
+    std::string trim(const std::string& str, const std::string& chars = " \t");
     
 #ifdef _WIN32
     std::wstring widen(const char* value);
