@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="compose.h" />
+    <ClInclude Include="dbg.h" />
     <ClInclude Include="fs.h" />
     <ClInclude Include="Options.h" />
     <ClInclude Include="path.h" />
