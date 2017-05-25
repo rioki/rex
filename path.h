@@ -16,6 +16,12 @@ namespace path
     
     std::string normalize(const std::string& path);
 
+    /** 
+     * Convert path to using only forward slashes /
+     * 
+     * This makes the path independent useful on all oses.
+     **/
+    std::string independent(const std::string& path);
     
     std::string canonicalize(const std::string& path);
 
@@ -32,6 +38,8 @@ namespace path
     std::string diff(const std::string& start, const std::string& target);
 
     std::string ext(const std::string& file);
+
+    std::string corename(const std::string& file);
     
     std::string tempdir();
 

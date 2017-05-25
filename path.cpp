@@ -90,6 +90,23 @@ namespace path
         return join(bits);
     }
 
+    std::string independent(const std::string& path)
+    {
+        std::vector<std::string> bits = explode(path);
+        std::string result;
+
+        for (unsigned int i = 0; i < bits.size(); i++)
+        {
+            result += bits[i];
+            if ((i + 1) != bits.size())
+            {
+                result += '/';
+            }
+        }
+
+        return result;
+    }
+
     std::string canonicalize(const std::string& path)
     {
         #ifdef _WIN32
@@ -210,6 +227,21 @@ namespace path
         }
     }
 
+    std::string corename(const std::string& file)
+    {
+        std::string base = basename(file);
+
+        size_t p = base.find_last_of('.');
+        if (p == std::string::npos)
+        {
+            return base;
+        }
+        else
+        {
+            return base.substr(0, p);
+        }
+    }
+
     std::string tempdir()
     {
     #ifdef _WIN32
@@ -232,7 +264,7 @@ namespace path
     {
     #ifdef _WIN32
         char tmp[MAX_PATH+1];
-        BOOL r = SHGetSpecialFolderPathA(NULL, tmp, CSIDL_COMMON_APPDATA, FALSE);
+        BOOL r = SHGetSpecialFolderPathA(NULL, tmp, CSIDL_LOCAL_APPDATA, FALSE);
         if (r == FALSE)
         {
             throw std::runtime_error("Failed to get APPDATA folder!");

@@ -60,4 +60,22 @@ namespace fs
         #error PORT ME
         #endif
     }
+
+    void mkdir(const std::string& dir)
+    {
+        BOOL r = CreateDirectory(strex::widen(dir).c_str(), NULL);
+        if (r == FALSE)
+        {
+            DWORD err =  GetLastError();
+            switch (err)
+            {
+                case ERROR_ALREADY_EXISTS:
+                    throw std::runtime_error(compose("Directory %0 already exists.", dir));
+                case ERROR_PATH_NOT_FOUND:
+                    throw std::runtime_error(compose("Invalid path %0.", dir));
+                default:
+                    throw std::runtime_error(compose("Failed to create directory %0.", dir));
+            }
+        }
+    }
 }

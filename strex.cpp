@@ -60,6 +60,23 @@ namespace strex
         return gibs;
     }
 
+    std::vector<std::string> tokenize(const std::string& str, const std::string& delimiter)
+    {
+        // TOOD string literals
+        std::vector<std::string> gibs = explode(str, delimiter);
+
+        std::vector<std::string> result;
+        for (auto gib : gibs)
+        {
+            if (!gib.empty())
+            {
+                result.push_back(gib);
+            }
+        }
+
+        return result;
+    }
+
     std::regex invalid_chars("[^a-zA-Z0-9\\-]");
     std::regex multiple_spaces("\\s+");
     std::regex spaces("\\s");
@@ -127,7 +144,7 @@ namespace strex
         size_t p = str.find_last_of(chars);
         if (p != std::string::npos)
         {
-            return str.substr(0, p - 1);
+            return str.substr(0, p);
         }
         else
         {
@@ -151,6 +168,28 @@ namespace strex
     std::string trim(const std::string& str, const std::string& chars)
     {
         return rtrim(ltrim(str, chars), chars);
+    }
+
+    std::string tolower(const std::string& str, const std::locale& loc)
+    {
+        std::string result(str.size(), '\0');
+
+        std::transform(str.begin(), str.end(), result.begin(), [&] (char c) {
+            return std::tolower(c, loc); 
+        });
+
+        return result; 
+    }
+
+    std::string toupper(const std::string& str, const std::locale& loc)
+    {
+        std::string result(str.size(), '\0');
+
+        std::transform(str.begin(), str.end(), result.begin(), [&] (char c) {
+            return std::toupper(c, loc); 
+        });
+
+        return result; 
     }
 }
 

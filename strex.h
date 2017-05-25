@@ -28,6 +28,7 @@
 #include <string>
 #include <sstream>
 #include <vector>
+#include <locale>
 
 namespace strex
 {
@@ -65,6 +66,8 @@ namespace strex
     }
 
     std::vector<std::string> explode(const std::string& str, const std::string& delimiter);
+
+    std::vector<std::string> tokenize(const std::string& str, const std::string& delimiter);
 
     template <typename C> 
     std::string join(const C& strs, const std::string& delimiter)
@@ -104,6 +107,9 @@ namespace strex
     std::string ltrim(const std::string& str, const std::string& chars = " \t");
     std::string trim(const std::string& str, const std::string& chars = " \t");
     
+    std::string tolower(const std::string& str, const std::locale& loc = std::locale("C"));
+    std::string toupper(const std::string& str, const std::locale& loc = std::locale("C"));
+
 #ifdef _WIN32
     std::wstring widen(const char* value);
     std::wstring widen(const std::string& value);

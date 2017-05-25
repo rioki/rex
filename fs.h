@@ -11,6 +11,8 @@ namespace fs
     bool exists(const std::string& file);
 
     void unlink(const std::string& file);
+
+    void mkdir(const std::string& dir);
 }
 
 #endif
