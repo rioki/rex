@@ -21,12 +21,14 @@
   <ItemGroup>
     <ClInclude Include="compose.h" />
     <ClInclude Include="dbg.h" />
+    <ClInclude Include="EventEmitter.h" />
     <ClInclude Include="fs.h" />
     <ClInclude Include="Options.h" />
     <ClInclude Include="path.h" />
     <ClInclude Include="strex.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="EventEmitter.cpp" />
     <ClCompile Include="fs.cpp" />
     <ClCompile Include="Options.cpp" />
     <ClCompile Include="path.cpp" />
