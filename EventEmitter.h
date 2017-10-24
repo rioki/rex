@@ -60,6 +60,8 @@ public:
 
     void remove_listener(unsigned int listener_id);
 
+	size_t count_listeners(unsigned int listener_id) const;
+
     template <typename... Args>
     void emit(unsigned int event_id, Args... args);
 

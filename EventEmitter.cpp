@@ -65,3 +65,17 @@ void EventEmitter::remove_listener(unsigned int listener_id)
         throw std::invalid_argument("EventEmitter::remove_listener: Invalid listener id.");
     }
 }
+
+size_t EventEmitter::count_listeners(unsigned int listener_id) const
+{
+	size_t count = 0;
+
+	std::for_each(listeners.begin(), listeners.end(), [&](std::pair<const unsigned int, std::shared_ptr<ListenerBase>> p) {
+		if (p.second->id == listener_id)
+		{
+			count++;
+		}
+	});
+
+	return count;
+}
