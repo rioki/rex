@@ -1,18 +1,18 @@
 //
 // Debug Helpers
-// 
+//
 // Copyright (c) 2015 - 2017 Sean Farrell <sean.farrell@rioki.org>
-// 
+//
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
 // in the Software without restriction, including without limitation the rights
 // to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
-// 
+//
 // The above copyright notice and this permission notice shall be included in
 // all copies or substantial portions of the Software.
-// 
+//
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -20,7 +20,7 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-// 
+//
 
 #ifndef _DBG_H_
 #define _DBG_H_
@@ -39,11 +39,11 @@
 
 #define DBG_TRACE(MSG, ...)  ::dbg::trace(MSG, __VA_ARGS__)
 
-#define DBG_SOFT_ASSERT(COND) if ((COND) == false) { \
+#define DBG_SOFT_ASSERT(COND) if ((bool)(COND) == false) { \
                                   DBG_TRACE(__FUNCTION__ ": Assertion '" #COND "' failed!\n"); \
                               }
 
-#define DBG_ASSERT(COND) if ((COND) == false) { \
+#define DBG_ASSERT(COND) if ((bool)(COND) == false) { \
                             DBG_TRACE(__FUNCTION__ ": Assertion '" #COND "' failed!\n"); \
                             ::dbg::handle_assert(__FUNCTION__, #COND); \
                          }
@@ -52,8 +52,8 @@
                       ::dbg::fail(__FUNCTION__, MSG);
 
 namespace dbg
-{    
-    inline 
+{
+    inline
     void trace(const char* msg, ...)
     {
         char buff[1024];
@@ -67,7 +67,7 @@ namespace dbg
         va_end(args);
     }
 
-    inline 
+    inline
     void trace(const std::string& msg)
     {
         OutputDebugStringA(msg.c_str());
@@ -106,15 +106,15 @@ namespace dbg
         #endif
         HANDLE process = GetCurrentProcess();
         HANDLE thread  = GetCurrentThread();
-                
+
         if (SymInitialize(process, NULL, TRUE) == FALSE)
         {
             DBG_TRACE(__FUNCTION__ ": Failed to call SymInitialize.");
-            return std::vector<StackFrame>(); 
+            return std::vector<StackFrame>();
         }
 
         SymSetOptions(SYMOPT_LOAD_LINES);
-        
+
         CONTEXT    context = {};
         context.ContextFlags = CONTEXT_FULL;
         RtlCaptureContext(&context);
@@ -137,7 +137,7 @@ namespace dbg
         frame.AddrStack.Mode = AddrModeFlat;
         #endif
 
-       
+
         bool first = true;
 
         std::vector<StackFrame> frames;
@@ -145,7 +145,7 @@ namespace dbg
         {
             StackFrame f = {};
             f.address = frame.AddrPC.Offset;
-            
+
             #if _WIN64
             DWORD64 moduleBase = 0;
             #else
@@ -154,7 +154,7 @@ namespace dbg
 
             moduleBase = SymGetModuleBase(process, frame.AddrPC.Offset);
 
-            char moduelBuff[MAX_PATH];            
+            char moduelBuff[MAX_PATH];
             if (moduleBase && GetModuleFileNameA((HINSTANCE)moduleBase, moduelBuff, MAX_PATH))
             {
                 f.module = basename(moduelBuff);
@@ -183,10 +183,10 @@ namespace dbg
                 DBG_TRACE(__FUNCTION__ ": Failed to resolve address 0x%X: %u\n", frame.AddrPC.Offset, error);
                 f.name = "Unknown Function";
             }
-            
+
             IMAGEHLP_LINE line;
             line.SizeOfStruct = sizeof(IMAGEHLP_LINE);
-            
+
             DWORD offset_ln = 0;
             if (SymGetLineFromAddr(process, frame.AddrPC.Offset, &offset_ln, &line))
             {
@@ -198,10 +198,10 @@ namespace dbg
                 DWORD error = GetLastError();
                 DBG_TRACE(__FUNCTION__ ": Failed to resolve line for 0x%X: %u\n", frame.AddrPC.Offset, error);
                 f.line = 0;
-            } 
+            }
 
             if (!first)
-            { 
+            {
                 frames.push_back(f);
             }
             first = false;
@@ -211,14 +211,14 @@ namespace dbg
 
         return frames;
     }
-    
-    inline 
+
+    inline
     void handle_assert(const char* func, const char* cond)
     {
         std::stringstream buff;
         buff << func << ": Assertion '" << cond << "' failed! \n";
         buff << "\n";
-        
+
         std::vector<StackFrame> stack = stack_trace();
         buff << "Callstack: \n";
         for (unsigned int i = 0; i < stack.size(); i++)
@@ -230,13 +230,13 @@ namespace dbg
         abort();
     }
 
-    inline 
+    inline
     void fail(const char* func, const char* msg)
     {
         std::stringstream buff;
         buff << func << ":  General Software Fault: '" << msg << "'! \n";
         buff << "\n";
-        
+
         std::vector<StackFrame> stack = stack_trace();
         buff << "Callstack: \n";
         for (unsigned int i = 0; i < stack.size(); i++)
