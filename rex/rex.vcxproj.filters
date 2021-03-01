@@ -36,6 +36,9 @@
     <ClInclude Include="EventEmitter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="sync.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Options.cpp">
@@ -51,6 +54,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EventEmitter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sync.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

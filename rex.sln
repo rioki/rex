@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30711.63
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rex", "rex.vcxproj", "{F34772A5-F84E-4C59-BF00-05B4D4C4A0CC}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rex", "rex\rex.vcxproj", "{F34772A5-F84E-4C59-BF00-05B4D4C4A0CC}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rex-test", "rex-test\rex-test.vcxproj", "{FB719F4D-02E7-4DFE-BF4B-C7A72E7A5A2A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,8 +23,19 @@ Global
 		{F34772A5-F84E-4C59-BF00-05B4D4C4A0CC}.Release|Win32.Build.0 = Release|Win32
 		{F34772A5-F84E-4C59-BF00-05B4D4C4A0CC}.Release|x64.ActiveCfg = Release|x64
 		{F34772A5-F84E-4C59-BF00-05B4D4C4A0CC}.Release|x64.Build.0 = Release|x64
+		{FB719F4D-02E7-4DFE-BF4B-C7A72E7A5A2A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{FB719F4D-02E7-4DFE-BF4B-C7A72E7A5A2A}.Debug|Win32.Build.0 = Debug|Win32
+		{FB719F4D-02E7-4DFE-BF4B-C7A72E7A5A2A}.Debug|x64.ActiveCfg = Debug|x64
+		{FB719F4D-02E7-4DFE-BF4B-C7A72E7A5A2A}.Debug|x64.Build.0 = Debug|x64
+		{FB719F4D-02E7-4DFE-BF4B-C7A72E7A5A2A}.Release|Win32.ActiveCfg = Release|Win32
+		{FB719F4D-02E7-4DFE-BF4B-C7A72E7A5A2A}.Release|Win32.Build.0 = Release|Win32
+		{FB719F4D-02E7-4DFE-BF4B-C7A72E7A5A2A}.Release|x64.ActiveCfg = Release|x64
+		{FB719F4D-02E7-4DFE-BF4B-C7A72E7A5A2A}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {76D2AFC6-1EB4-4EC5-BA8B-42BD8D702AEB}
 	EndGlobalSection
 EndGlobal
